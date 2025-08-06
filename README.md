@@ -36,7 +36,7 @@
 
 ```bash
 # 克隆项目
-git clone <your-repo-url>
+git clone https://github.com/OPTJoker/goLearn.git
 cd goLearn
 
 # 安装Go依赖
