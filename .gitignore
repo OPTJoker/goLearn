@@ -1,0 +1,156 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+logs/
+server.log
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.bak
+
+# Build output
+/build/
+/dist/
+/bin/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Coverage files
+coverage.txt
+coverage.html
+*.cover
+
+# Profiling files
+*.prof
+*.cpu
+*.mem
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Project-specific ignores
+# Uncomment if you have these directories
+# docs/build/
+# vendor/
+
+# Local configuration files
+config.local.json
+config.local.yaml
+config.local.yml
+
+# SSL certificates (if any)
+*.pem
+*.key
+*.crt
+*.p12
+
+# Node.js (if you have any frontend build tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archive files
+*.tar.gz
+*.zip
+*.rar
+
+# Editor backups
+*~
+\#*\#
+.#*
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+Session.vim
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Local development files
+*.local
+local/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Air live reload tool
+tmp/
+
+# Migration files (if you want to ignore them)
+# migrations/
+
+# Custom project ignores
+# Add any project-specific files or directories here

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go数据库操作测试工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 3px solid #4facfe;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        button {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 172, 254, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+        }
+
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .status-connected {
+            background: #28a745;
+        }
+
+        .status-disconnected {
+            background: #dc3545;
+        }
+
+        .users-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .users-table th,
+        .users-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .users-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .users-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .content-table th,
+        .content-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .content-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .content-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4facfe;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🗄️ Go数据库操作测试工具</h1>
+            <p>MySQL数据库管理与用户CRUD操作演示</p>
+        </div>
+
+        <div class="main-content">
+            <!-- 数据库状态 -->
+            <div class="section">
+                <h2>📊 数据库状态</h2>
+                <div class="highlight">
+                    <span id="dbStatus">
+                        <span class="status-indicator status-disconnected"></span>
+                        未连接
+                    </span>
+                </div>
+                <button onclick="checkDatabaseStatus()">🔄 检查状态</button>
+            </div>
+
+            <!-- 数据库操作 -->
+            <div class="section">
+                <h2>🔧 数据库操作</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dbHost">主机地址:</label>
+                        <input type="text" id="dbHost" value="localhost" placeholder="localhost">
+                    </div>
+                    <div class="form-group">
+                        <label for="dbPort">端口:</label>
+                        <input type="number" id="dbPort" value="3306" placeholder="3306">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dbUser">用户名:</label>
+                        <input type="text" id="dbUser" value="root" placeholder="root">
+                    </div>
+                    <div class="form-group">
+                        <label for="dbPassword">密码:</label>
+                        <input type="password" id="dbPassword" placeholder="留空如果没有密码">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dbName">数据库名:</label>
+                    <input type="text" id="dbName" value="xldb_webapi" placeholder="your_db_name">
+                </div>
+
+                <button onclick="createDatabase()">🏗️ 创建数据库</button>
+                <button onclick="connectDatabase()" class="btn-success">🔌 连接数据库</button>
+
+                <div id="dbResponse" class="response" style="display: none;"></div>
+            </div>
+
+            <!-- 用户管理 -->
+            <div class="section">
+                <h2>👥 用户管理</h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userName">姓名:</label>
+                        <input type="text" id="userName" placeholder="输入用户姓名">
+                    </div>
+                    <div class="form-group">
+                        <label for="userEmail">邮箱:</label>
+                        <input type="email" id="userEmail" placeholder="输入邮箱地址">
+                    </div>
+                    <div class="form-group">
+                        <label for="userAge">年龄:</label>
+                        <input type="number" id="userAge" placeholder="输入年龄">
+                    </div>
+                </div>
+
+                <button onclick="createUser()">➕ 创建用户</button>
+                <button onclick="getAllUsers()" class="btn-success">📋 获取所有用户</button>
+                <button onclick="clearUserForm()">🧹 清空表单</button>
+
+                <div id="userResponse" class="response" style="display: none;"></div>
+
+                <!-- 用户列表 -->
+                <div id="usersTableContainer" style="display: none; margin-top: 30px;">
+                    <h3>用户列表</h3>
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>姓名</th>
+                                <th>邮箱</th>
+                                <th>年龄</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 留言板 -->
+            <div class="section">
+                <h2>💬 留言板</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="userContent">留言内容:</label>
+                        <textarea id="userContent" rows="4" placeholder="输入您的留言..."></textarea>
+                    </div>
+                </div>
+
+                <button onclick="addContent()">发表留言</button>
+                <button onclick="getAllContent()" class="btn-success">获取留言列表</button>
+                <div id="contentResponse" class="response" style="display: none;"></div>
+
+                <!-- 留言列表 -->
+                <div id="contentTableContainer" style="display: none; margin-top: 30px;">
+                    <h3>留言列表</h3>
+                    <table class="content-table">
+                        <thead>
+                            <tr>
+                                <th>IP</th>
+                                <th>内容</th>
+                                <th>创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody id="contentTableBody">
+                        </tbody>
+                    </table>
+            </div>
+
+            <!-- 加载动画 -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>处理中...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
