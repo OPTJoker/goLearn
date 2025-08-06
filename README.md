@@ -22,7 +22,7 @@
 - ✅ 健康检查和监控
 
 ## 🎆 效果展示
-![效果演示](https://github.com/OPTJoker/goLearn/webScreenShot.png)
+![效果演示](https://raw.githubusercontent.com/OPTJoker/goLearn/refs/heads/main/webScreenShot.png)
 
 ## 🚀 快速开始
 
