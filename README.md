@@ -21,6 +21,9 @@
 - ✅ 跨域 CORS 支持
 - ✅ 健康检查和监控
 
+## 🎆 效果展示
+![效果演示](https://github.com/OPTJoker/goLearn/webScreenShot.png)
+
 ## 🚀 快速开始
 
 ### 环境要求
@@ -676,7 +679,7 @@ go run src/main.go
 ## 📞 联系方式
 
 - 作者: Sharon
-- 项目链接: [GitHub Repository](https://github.com/your-username/xlgo)
+- 项目链接: [GitHub Repository](https://github.com/OPTJoker/goLearn)
 
 ## 🙏 致谢
 
