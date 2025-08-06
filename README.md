@@ -37,7 +37,7 @@
 ```bash
 # 克隆项目
 git clone <your-repo-url>
-cd xlgo
+cd goLearn
 
 # 安装Go依赖
 go mod tidy
