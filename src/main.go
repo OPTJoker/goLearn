@@ -597,10 +597,10 @@ func main() {
 	fmt.Println("  GET  /api/users/:id       - 获取指定用户")
 	fmt.Println("  PUT  /api/users/:id       - 更新用户")
 	fmt.Println("  DELETE /api/users/:id     - 删除用户")
-	fmt.Println("  DELETE /api/users/:id     - 删除用户")
 
 	fmt.Println("  POST /api/addContent   - 添加留言")
 	fmt.Println("  GET  /api/getAllContent   - 获取所有留言")
+	fmt.Println("  DELETE /api/removeContent/:msg_id - 删除留言")
 
 	log.Fatal(r.Run(":8080"))
 }
