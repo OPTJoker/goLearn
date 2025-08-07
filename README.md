@@ -32,6 +32,21 @@
 - MySQL 8.0+
 - curl（用于API测试）
 
+### 镜像配置
+<img width="403" height="154" alt="image" src="https://github.com/user-attachments/assets/b3a7ae3d-4afa-486d-b0c9-4cd05191c6b3" />
+
+**神奇的大陆用户，拉依赖库的时候可能会遇到类似上面的报错，所以你需要配置如下镜像：**
+```bash
+# 设置七牛云镜像源（永久生效）
+go env -w GOPROXY=https://goproxy.cn,direct
+
+# 或设置阿里云镜像源
+go env -w GOPROXY=https://mirrors.aliyun.com/goproxy/,direct
+
+# 验证配置
+go env | grep GOPROXY
+```
+
 ### 安装依赖
 
 ```bash
@@ -390,9 +405,6 @@ CMD ["go", "run", "src/main.go"]
 4. 推送到分支 (`git push origin feature/AmazingFeature`)
 5. 创建 Pull Request
 
-## 📄 许可证
-
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
 
 ## 📞 联系方式
 
@@ -644,7 +656,7 @@ go run src/main.go
 - ✅ 健康检查接口
 - ✅ 智能重启脚本
 
-### 计划功能
+### 计划功能（并没有真的在计划）
 - 🔄 用户认证和授权
 - 🔄 数据验证和校验
 - 🔄 API限流和缓存
@@ -674,7 +686,7 @@ go run src/main.go
 
 ## 📄 许可证
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情
+本项目不采用任何许可证 随便造。
 
 ## 📞 联系方式
 
